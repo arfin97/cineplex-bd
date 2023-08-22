@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/api")
+@RestController
 public class MovieController {
 
     private final MovieService movieService;
@@ -34,19 +34,22 @@ public class MovieController {
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Movie not found",
                     content = @Content) })
-    @GetMapping("/movies/{id}")
+    @GetMapping("/api/movies/{id}")
     public ResponseEntity<MovieResponse> getMovieById(@PathVariable Long id){
         MovieResponse movieResponse = movieService.getMovieById(id);
         return ResponseEntity.ok(movieResponse);
     }
 
-    @GetMapping("/movies")
+    @Operation(summary = "Get all movies")
+    @GetMapping("/api/movies")
     public ResponseEntity<List<MovieResponse>> getAllMovies(){
         List<MovieResponse> movieResponses = movieService.getAllMovies();
         return ResponseEntity.ok(movieResponses);
     }
 
-    @PostMapping("/movies")
+    @Operation(summary = "Create a movie")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/api/movies")
     public ResponseEntity<MovieResponse> createMovie(@Valid @RequestBody MovieRequest movieRequest){
         MovieResponse savedMovie = movieService.createMovie(movieRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMovie);

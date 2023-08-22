@@ -2,6 +2,7 @@ package com.cineplexbd.cineplex.controller;
 
 import com.cineplexbd.cineplex.domain.GenreResponse;
 import com.cineplexbd.cineplex.service.GenreService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ public class GenreController {
     public GenreController(GenreService genreService) {
         this.genreService = genreService;
     }
-
+    @Operation(summary = "Get all genres")
     @GetMapping("/api/genres")
     public ResponseEntity<List<GenreResponse>> getGenres(){
         List<GenreResponse> genreResponses = genreService.getGenres();
