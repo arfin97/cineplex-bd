@@ -37,6 +37,7 @@ public class MovieController {
     @GetMapping("/api/movies/{id}")
     public ResponseEntity<MovieResponse> getMovieById(@PathVariable Long id){
         MovieResponse movieResponse = movieService.getMovieById(id);
+        if(movieResponse == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(movieResponse);
     }
 
