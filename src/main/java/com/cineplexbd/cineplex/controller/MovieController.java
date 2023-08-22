@@ -11,11 +11,6 @@ import java.util.List;
 @RestController
 public class MovieController {
 
-    //TODO: API   Endpoint:   POST /api/movies
-    //TODO: API   Endpoint:   GET /api/movies Response   (200   OK):
-    //TODO API   Endpoint:   GET /api/movies/{movieId} Response   (200   OK):
-    //TODO: Get   All   Genres:   GET /api/genres
-
     private final MovieService movieService;
 
     public MovieController(MovieService movieService) {
