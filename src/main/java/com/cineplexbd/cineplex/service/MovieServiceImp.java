@@ -6,7 +6,9 @@ import com.cineplexbd.cineplex.entities.Movie;
 import com.cineplexbd.cineplex.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieServiceImp implements MovieService {
@@ -45,6 +47,31 @@ public class MovieServiceImp implements MovieService {
         movieResponse.setReleaseYear(savedMovie.getReleaseYear());
         movieResponse.setDescription(savedMovie.getDescription());
         movieResponse.setGenres(List.of(savedMovie.getGenres().split(",")));
+
+        return movieResponse;
+    }
+
+    @Override
+    public List<MovieResponse> getAllMovies() {
+        List<Movie> movies = movieRepository.findAll();
+
+        List<MovieResponse> movieResponses = movies.stream()
+                .map(this::mapToMovieResponse)
+                .collect(Collectors.toList());
+
+        return movieResponses;
+    }
+
+    private MovieResponse mapToMovieResponse(Movie movie) {
+        MovieResponse movieResponse = new MovieResponse();
+        movieResponse.setTitle(movie.getTitle());
+        movieResponse.setReleaseYear(movie.getReleaseYear());
+        movieResponse.setDescription(movie.getDescription());
+
+        if (movie.getGenres() != null && !movie.getGenres().isEmpty()) {
+            List<String> genres = Arrays.asList(movie.getGenres().split(","));
+            movieResponse.setGenres(genres);
+        }
 
         return movieResponse;
     }

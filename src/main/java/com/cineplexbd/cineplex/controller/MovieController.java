@@ -33,4 +33,10 @@ public class MovieController {
         MovieResponse savedMovie = movieService.createMovie(movieRequest);
         return ResponseEntity.ok(savedMovie);
     }
+
+    @GetMapping("/api/movies")
+    public ResponseEntity<List<MovieResponse>> getAllMovies(){
+        List<MovieResponse> movieResponses = movieService.getAllMovies();
+        return ResponseEntity.ok(movieResponses);
+    }
 }
