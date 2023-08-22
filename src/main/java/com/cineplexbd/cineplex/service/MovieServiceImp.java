@@ -4,6 +4,7 @@ import com.cineplexbd.cineplex.domain.MovieRequest;
 import com.cineplexbd.cineplex.domain.MovieResponse;
 import com.cineplexbd.cineplex.entities.Genre;
 import com.cineplexbd.cineplex.entities.Movie;
+import com.cineplexbd.cineplex.exception.ResourceNotFoundException;
 import com.cineplexbd.cineplex.repository.GenreRepository;
 import com.cineplexbd.cineplex.repository.MovieRepository;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class MovieServiceImp implements MovieService {
 
     @Override
     public MovieResponse getMovieById(Long id) {
-        Movie movie = movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie not found"));
+        Movie movie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
         return convertToMovieResponse(movie);
     }
 
