@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MovieDto {
+public class MovieResponse {
     private String title;
     private Integer releaseYear;
     private String description;
