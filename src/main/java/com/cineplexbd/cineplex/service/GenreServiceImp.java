@@ -31,7 +31,6 @@ public class GenreServiceImp implements GenreService {
     private GenreResponse mapToGenreResponse(Genre genre) {
         GenreResponse genreResponse = new GenreResponse();
         genreResponse.setName(genre.getName());
-        genreResponse.setDescription(genre.getDescription());
 
         return genreResponse;
     }

@@ -36,7 +36,7 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private List<Genre> genres = new ArrayList<>();
+    private Set<Genre> genres;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
