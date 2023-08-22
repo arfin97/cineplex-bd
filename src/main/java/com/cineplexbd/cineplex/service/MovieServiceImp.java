@@ -27,19 +27,19 @@ public class MovieServiceImp implements MovieService {
 
     @Override
     public MovieResponse getMovieById(Long id) {
-        MovieResponse movieResponse = new MovieResponse();
         Movie movie = movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie not found"));
+        return convertToMovieResponse(movie);
+    }
 
-        movieResponse.setTitle(movie.getTitle());
-        movieResponse.setReleaseYear(movie.getReleaseYear());
-        movieResponse.setDescription(movie.getDescription());
+    @Override
+    public List<MovieResponse> getAllMovies() {
+        List<Movie> movies = movieRepository.findAll();
 
-        List<String> genres = movie.getGenres().stream()
-                .map(Genre::getName)
+        List<MovieResponse> movieResponses = movies.stream()
+                .map(this::convertToMovieResponse)
                 .collect(Collectors.toList());
-        movieResponse.setGenres(genres);
 
-        return movieResponse;
+        return movieResponses;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class MovieServiceImp implements MovieService {
         movie.setDescription(movieRequest.getDescription());
 
         Set<Genre> genres = movieRequest.getGenres().stream()
-                .map(genreName -> genreRepository.findByName(genreName))
+                .map(genreRepository::findByName)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
 
@@ -67,6 +67,7 @@ public class MovieServiceImp implements MovieService {
 
     private MovieResponse convertToMovieResponse(Movie movie) {
         MovieResponse movieResponse = new MovieResponse();
+        movieResponse.setId(movie.getId());
         movieResponse.setTitle(movie.getTitle());
         movieResponse.setReleaseYear(movie.getReleaseYear());
         movieResponse.setDescription(movie.getDescription());
@@ -76,33 +77,6 @@ public class MovieServiceImp implements MovieService {
                 .collect(Collectors.toList());
 
         movieResponse.setGenres(genreNames);
-        return movieResponse;
-    }
-
-    @Override
-    public List<MovieResponse> getAllMovies() {
-        List<Movie> movies = movieRepository.findAll();
-
-        List<MovieResponse> movieResponses = movies.stream()
-                .map(this::mapToMovieResponse)
-                .collect(Collectors.toList());
-
-        return movieResponses;
-    }
-
-    private MovieResponse mapToMovieResponse(Movie movie) {
-        MovieResponse movieResponse = new MovieResponse();
-        movieResponse.setTitle(movie.getTitle());
-        movieResponse.setReleaseYear(movie.getReleaseYear());
-        movieResponse.setDescription(movie.getDescription());
-
-        if (movie.getGenres() != null && !movie.getGenres().isEmpty()) {
-            List<String> genres = movie.getGenres().stream()
-                    .map(Genre::getName)
-                    .collect(Collectors.toList());
-            movieResponse.setGenres(genres);
-        }
-
         return movieResponse;
     }
 }

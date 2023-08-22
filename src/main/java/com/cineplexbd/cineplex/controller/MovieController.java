@@ -3,6 +3,7 @@ package com.cineplexbd.cineplex.controller;
 import com.cineplexbd.cineplex.domain.MovieRequest;
 import com.cineplexbd.cineplex.domain.MovieResponse;
 import com.cineplexbd.cineplex.service.MovieService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class MovieController {
     @PostMapping("/api/movies")
     public ResponseEntity<MovieResponse> createMovie(@RequestBody MovieRequest movieRequest){
         MovieResponse savedMovie = movieService.createMovie(movieRequest);
-        return ResponseEntity.ok(savedMovie);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedMovie);
     }
 
     @GetMapping("/api/movies")
