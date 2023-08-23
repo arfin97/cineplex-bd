@@ -1,120 +1,64 @@
-# cineplex-bd
 
-# Requirement
+# Cineplex
+Cineplex: A all in one Movie management solution.
 
-**Coding Assignment: Movie API and Front-end**
+##  Versions
+- Java 17
+- Spring Boot 3.1.2
 
-**Project Description:**
+## Local Environment Setup
 
-In this coding assignment, you will be building a simple Movie API along with a front-end user interface to interact with the API. The purpose of this assignment is to assess your ability to implement a RESTful API, work with a database, follow clean coding principles, and demonstrate best practices in software development. You are not expected to complete the entire project but to showcase your skills and approach.
+- Git: https://git-scm.com/downloads
+- Java 17 JDK: https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html
+- PostgreSQL v15.2: https://www.postgresql.org/download/
+- Docker version 20.10.2: https://www.docker.com/products/docker-desktop/
 
-**Domain:**
+## Environment Variables
 
-You will be working on a movie management system. The main entities are `Movie` and `Genre`. A movie can belong to one or more genres. The basic attributes of a `Movie` include `title`, `release year`, `description`, and `genre(s)`.
+Environment variables are in application.properties.
 
-**API Requirements:**
+DO NOT include the file in the source control while using sensitive data. For demo project purpose we have included them here as they are not sensitive. BUT in Real never put them in source control.
 
-1. **Create a Movie:**
-    
-    - Implement an API endpoint to create a new movie. The API should accept JSON data containing the movie details and associated genre(s).
-    
-**API Endpoint:**
-`POST /api/movies`
-
-**Request Body:**
-```json
-{
-    "title": "Movie Title",
-    "releaseYear": 2023,
-    "description": "Movie Description",
-    "genres": ["Action", "Drama"]
-}
+Below are the default values or default format for some of the environment variables in local environment.
 ```
-**Response (201 Created):**
-
-```json
-{
-    "id": "1",
-    "title": "Movie Title",
-    "releaseYear": 2023,
-    "description": "Movie Description",
-    "genres": ["Action", "Drama"]
-}
-```
-2. **Get All Movies:**
-
-- Create an API endpoint to retrieve a list of all movies. Include the associated genre(s) information.
-
-**API Endpoint:**
-`GET /api/movies`
-**Response (200 OK):**
-```json
-[
-    {
-        "id": "1",
-        "title": "Movie Title",
-        "releaseYear": 2023,
-        "description": "Movie Description",
-        "genres": ["Action", "Drama"]
-    },
-    // Other movies...
-]
-
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres  
+spring.datasource.username=postgres  
+spring.datasource.password=asdf
 ```
 
-**Get Movie Details:**
 
-- Implement an API endpoint to fetch details of a specific movie by its ID. Include genre(s) information.
+## Setup and run project
 
-**API Endpoint:**
-`GET /api/movies/{movieId}`
-**Response (200 OK):**
-```json
-{
-    "id": "1",
-    "title": "Movie Title",
-    "releaseYear": 2023,
-    "description": "Movie Description",
-    "genres": ["Action", "Drama"]
-}
-
+Download and Install Java 17 JDK.
 ```
-**Get All Genres:**
-`GET /api/genres`
-```json
-["Action", "Drama", "Comedy", ...]
+https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html
 ```
 
-**Frontend Requirements (Optional):**
-*Front-end is optional you can just use Postman to communicate with the Back-end.*
+Download and Install Docker Desktop
+```
+https://www.docker.com/products/docker-desktop/
+```
+Clone the project
+```
+git clone https://github.com/arfin97/cineplex-bd.git
+```
+You can now open the project in your desired IDE (Eg. Intillij) and use the UI to build and dockerize the application.
 
-- Create a simple front-end interface using Angular 16 (or any other framework you're comfortable with). Focus on usability and user experience.
-- Implement pages/views to:
-    - Display a list of all movies along with their details.
-    - Allow users to view details of a specific movie.
-    - Provide a form to add a new movie with associated genre(s).
-    - Show a list of all available genres.
+Or you can follow the below steps to use terminal commads to run the project.
 
-**Guidelines:**
+Build Jar
+```bash
+./mvnw clean install
+```
 
-- **Use raw Java/Go to build the back-end. We want to see your understanding of the back-end. You can use Maven/Gradle or any other appropriate build tool.
-- Follow the Swagger/OpenAPI specification format for documenting your API endpoints and responses.
-- Use docker to containerize your back-end API.
-- Write proper unit tests for back-end code.
-- Pay attention to code organization, modularization, and separation of concerns.
-- Implement proper error handling and validation on both the API and front-end.
-- Utilize appropriate HTTP methods and status codes for the API endpoints.
-- Use a database of your choice (SQLite, MySQL, etc.) to store movie and genre data.
-- Follow best practices for naming conventions, code readability, and commenting.
-- Apply proper design patterns and development principles like SOLID, DRY, YAGNI etc.
-- NO NEED to implement authentication mechanism.
-- Include clear instructions on how to run your project locally.
-- Focus on demonstrating your coding approach, architectural thinking, and attention to detail.
+Seed the create images and containers
+```bash
+docker-compose up
+```
+This will automatically start the server.
 
-**Submission:**
+# APIs
+Go to https://localhost:8080/swagger-ui/index.html/ to see the swagger ui.
 
-Provide the source code and any necessary instructions to run your project. Share your code repository (GitHub, GitLab, etc.)
+Or import this postman collection https://gist.github.com/arfin97/f81a6adf3072c15def056b4e79470d74
 
-**Evaluation Criteria:**
-
-You are not expected to complete the entire project but to showcase your skills and approach.
