@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -63,9 +64,9 @@ public class MovieServiceImp implements MovieService {
         movie.setDescription(movieRequest.getDescription());
 
         Set<Genre> genres = movieRequest.getGenres().stream()
-                .map(genreRepository::findByName)
-                .filter(Objects::nonNull)
+                .map(genreName -> findOrCreateGenreByName(genreName))
                 .collect(Collectors.toSet());
+
 
         movie.setGenres(genres);
         return movie;
@@ -84,5 +85,14 @@ public class MovieServiceImp implements MovieService {
 
         movieResponse.setGenres(genreNames);
         return movieResponse;
+    }
+
+    public Genre findOrCreateGenreByName(String name) {
+        return Optional.ofNullable(genreRepository.findByName(name))
+                .orElseGet(() -> {
+                    Genre genre = new Genre();
+                    genre.setName(name);
+                    return genreRepository.save(genre);
+                });
     }
 }

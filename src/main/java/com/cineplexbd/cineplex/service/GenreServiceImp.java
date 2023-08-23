@@ -6,6 +6,7 @@ import com.cineplexbd.cineplex.repository.GenreRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,13 +23,13 @@ public class GenreServiceImp implements GenreService {
         List<Genre> genres = genreRepository.findAll();
 
         List<GenreResponse> genreResponses = genres.stream()
-                .map(this::mapToGenreResponse)
+                .map(this::convertToGenreResponse)
                 .collect(Collectors.toList());
 
         return genreResponses;
     }
 
-    private GenreResponse mapToGenreResponse(Genre genre) {
+    private GenreResponse convertToGenreResponse(Genre genre) {
         GenreResponse genreResponse = new GenreResponse();
         genreResponse.setName(genre.getName());
 
