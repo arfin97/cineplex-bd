@@ -7,6 +7,8 @@ import com.cineplexbd.cineplex.entities.Movie;
 import com.cineplexbd.cineplex.exception.ResourceNotFoundException;
 import com.cineplexbd.cineplex.repository.GenreRepository;
 import com.cineplexbd.cineplex.repository.MovieRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,9 @@ public class MovieServiceImp implements MovieService {
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
 
+    @Value("${movie.not.found.error.message}")
+    private String MOVIE_NOT_FOUND_ERROR_MESSAGE;
+
     public MovieServiceImp(MovieRepository movieRepository, GenreRepository genreRepository) {
         this.movieRepository = movieRepository;
         this.genreRepository = genreRepository;
@@ -28,7 +33,7 @@ public class MovieServiceImp implements MovieService {
 
     @Override
     public MovieResponse getMovieById(Long id) {
-        Movie movie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
+        Movie movie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(MOVIE_NOT_FOUND_ERROR_MESSAGE));
         return convertToMovieResponse(movie);
     }
 

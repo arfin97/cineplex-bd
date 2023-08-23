@@ -1,5 +1,6 @@
 package com.cineplexbd.cineplex.entities;
 
+import com.cineplexbd.cineplex.service.ServiceConstants;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "genres", schema = "cineplex")
+@Table(name = ServiceConstants.GENRE_TABLE, schema = ServiceConstants.CINEPLEX_SCHEMA)
 @Entity
 public class Genre {
     @Id

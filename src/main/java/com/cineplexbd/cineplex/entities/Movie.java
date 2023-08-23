@@ -1,5 +1,6 @@
 package com.cineplexbd.cineplex.entities;
 
+import com.cineplexbd.cineplex.service.ServiceConstants;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +19,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "movies", schema = "cineplex")
+@Table(name = ServiceConstants.MOVIE_TABLE, schema = ServiceConstants.CINEPLEX_SCHEMA)
 public class Movie {
 
     @Id
@@ -37,8 +38,8 @@ public class Movie {
 
     @ManyToMany
     @JoinTable(
-            name = "movie_genre",
-            schema = "cineplex",
+            name = ServiceConstants.MOVIE_GENRE_TABLE,
+            schema = ServiceConstants.CINEPLEX_SCHEMA,
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
