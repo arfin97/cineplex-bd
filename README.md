@@ -2,6 +2,11 @@
 # Cineplex
 Cineplex: A all in one Movie management solution.
 
+# Branch Description
+- `dev` -> If you are developing, pull from this branch.
+- `stage` -> UAT environment, code that is ready to test.
+- `prod` -> Most stable code. Production branch.
+
 ##  Versions
 - Java 17
 - Spring Boot 3.1.2
