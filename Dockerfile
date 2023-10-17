@@ -1,3 +1,3 @@
 FROM amazoncorretto:17-alpine-jdk
-COPY ./target/cineplex-0.0.1-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+COPY ./target/cineplex-bd.jar cineplex-bd.jar
+ENTRYPOINT ["java","-jar","cineplex-bd.jar"]
